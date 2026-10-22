@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tony Castro Saltillo - Crónicas Bacheanas</title>
+  <title>Tony Castro Saltillo - Cronicas Bacheanas</title>
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- html2canvas para generar imágenes descargables -->
+  <!-- html2canvas para generar imagenes descargables -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <!-- Configuración de colores institucionales de MORENA -->
+  <!-- Configuracion de colores institucionales de MORENA -->
   <script>
     tailwind.config = {
       theme: {
@@ -37,7 +37,7 @@
     <div class="max-w-md mx-auto flex justify-between items-center">
       <div>
         <h1 class="text-xl font-black tracking-tight uppercase">Tony Castro Saltillo</h1>
-        <p class="text-xs text-stone-200 font-medium">Porque cada cráter tiene su historia (y su club de víctimas)</p>
+        <p class="text-xs text-stone-200 font-medium">Porque cada crater tiene su historia (y su club de victimas)</p>
       </div>
       <span class="bg-morena-dorado text-white text-[11px] font-bold px-2.5 py-1 rounded-full shadow">
         CAZA-BACHES
@@ -51,7 +51,7 @@
     <section class="bg-white p-3.5 rounded-2xl shadow-md border border-stone-200">
       <div class="flex justify-between items-center mb-2">
         <h2 class="text-xs font-extrabold text-morena-guinda uppercase tracking-wider">
-          Mapa de Cráteres Lunares (Saltillo)
+          Mapa de Crateres Lunares (Saltillo)
         </h2>
         <button type="button" onclick="obtenerUbicacion()" class="text-xs bg-morena-guinda hover:bg-morena-oscuro text-white font-semibold px-3 py-1.5 rounded-lg transition shadow-sm cursor-pointer">
           Actualizar mi GPS
@@ -67,7 +67,7 @@
     <form id="bache-form" class="bg-white p-5 rounded-2xl shadow-md border-t-4 border-morena-guinda space-y-4">
       <div class="border-b border-stone-200 pb-2">
         <h2 class="text-lg font-black text-morena-guinda">Adopta y bautiza tu bache</h2>
-        <p class="text-xs text-stone-500">Si el municipio no lo tapa, mínimo lo hacemos famoso en todo Saltillo.</p>
+        <p class="text-xs text-stone-500">Si el municipio no lo tapa, minimo lo hacemos famoso en todo Saltillo.</p>
       </div>
 
       <div class="grid grid-cols-2 gap-2 text-xs font-mono bg-morena-crema p-2.5 rounded-lg border border-stone-300 text-stone-700">
@@ -75,11 +75,25 @@
         <div>Longitud: <span id="lng-display" class="font-bold text-morena-guinda">-100.99240</span></div>
       </div>
 
+      <!-- Opciones Duales: Camara Directa o Galeria -->
       <div>
-        <label class="block text-xs font-bold uppercase text-morena-oscuro mb-1">1. La foto del susodicho (Foto o Video)</label>
-        <input type="file" id="media-input" accept="image/*,video/*" 
-               class="block w-full text-xs text-stone-600 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-morena-guinda file:text-white hover:file:bg-morena-oscuro cursor-pointer bg-morena-crema rounded-xl p-1.5 border border-stone-300" required>
-        <p id="file-status" class="text-[11px] text-stone-500 mt-1">Selecciona una foto o video de tu galería o cámara.</p>
+        <label class="block text-xs font-bold uppercase text-morena-oscuro mb-2">1. Selecciona la evidencia</label>
+        
+        <div class="grid grid-cols-2 gap-2 mb-2">
+          <!-- Boton para abrir Camara -->
+          <label class="bg-morena-guinda hover:bg-morena-oscuro text-white text-xs font-bold py-2.5 px-3 rounded-xl text-center cursor-pointer shadow-sm flex items-center justify-center gap-1 transition">
+            <span>Abrir Camara</span>
+            <input type="file" id="camera-input" accept="image/*,video/*" capture="environment" class="hidden">
+          </label>
+
+          <!-- Boton para elegir de Galeria -->
+          <label class="bg-stone-200 hover:bg-stone-300 text-stone-800 text-xs font-bold py-2.5 px-3 rounded-xl text-center cursor-pointer shadow-sm flex items-center justify-center gap-1 transition">
+            <span>Elegir Galeria</span>
+            <input type="file" id="gallery-input" accept="image/*,video/*" class="hidden">
+          </label>
+        </div>
+
+        <p id="file-status" class="text-[11px] text-stone-500 mt-1">Ningún archivo seleccionado.</p>
         
         <div id="preview-container" class="mt-2 hidden">
           <img id="img-preview" alt="Vista previa" class="w-full h-48 object-cover rounded-xl hidden border border-stone-300" />
@@ -127,20 +141,18 @@
 
   </main>
 
-  <!-- Contenedor oculto exclusivo para renderizar la tarjeta gráfica descargable -->
+  <!-- Contenedor oculto para renderizar la tarjeta gráfica descargable -->
   <div id="export-card-template" style="position: absolute; left: -9999px; top: -9999px; width: 600px; background: #621132; color: #ffffff; padding: 30px; font-family: sans-serif; border-bottom: 10px solid #B38E5D;">
     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #B38E5D; padding-bottom: 12px; margin-bottom: 20px;">
       <h3 style="margin: 0; font-size: 20px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px;">Tony Castro Saltillo</h3>
       <span style="background: #B38E5D; color: #ffffff; font-size: 11px; font-weight: bold; padding: 4px 10px; border-radius: 20px;">REPORTE CIUDADANO</span>
     </div>
-    <div id="export-media-container" style="width: 100%; height: 300px; background: #000; border-radius: 12px; overflow: hidden; margin-bottom: 20px;">
-      <!-- Se inserta la imagen dinámicamente -->
-    </div>
+    <div id="export-media-container" style="width: 100%; height: 300px; background: #000; border-radius: 12px; overflow: hidden; margin-bottom: 20px;"></div>
     <h2 id="export-titulo" style="margin: 0 0 8px 0; font-size: 22px; font-weight: 900; color: #B38E5D;"></h2>
     <div id="export-antiguedad" style="display: inline-block; background: #4E232E; color: #ffffff; font-size: 12px; font-weight: bold; padding: 5px 12px; border-radius: 8px; margin-bottom: 12px;"></div>
     <p id="export-historia" style="margin: 0 0 20px 0; font-size: 14px; font-style: italic; line-height: 1.5; color: #F8F5F2;"></p>
     <div style="border-top: 1px solid rgba(255,255,255,0.2); padding-top: 12px; display: flex; justify-content: space-between; font-size: 12px; font-family: monospace; color: #B38E5D;">
-      <span id="export-coords">📍 Coordenadas: 25.4232, -100.9924</span>
+      <span id="export-coords">Coordenadas: 25.4232, -100.9924</span>
       <span>#SaltilloSinBaches</span>
     </div>
   </div>
@@ -184,7 +196,7 @@
         status.textContent = "Tu navegador no cuenta con GPS. Toca el mapa.";
         return;
       }
-      status.textContent = "Triangulando el cráter desde el satélite...";
+      status.textContent = "Triangulando el crater desde el satelite...";
       navigator.geolocation.getCurrentPosition(
         (pos) => {
           const { latitude, longitude, accuracy } = pos.coords;
@@ -199,9 +211,8 @@
       );
     }
 
-    // Cargar Archivo con FileReader
-    document.getElementById('media-input').addEventListener('change', function(e) {
-      const file = e.target.files[0];
+    // Manejo unificado para procesar archivos de Camara o Galeria
+    function procesarArchivo(file) {
       const fileStatus = document.getElementById('file-status');
       if (!file) { loadedMediaData = null; return; }
 
@@ -228,9 +239,17 @@
         fileStatus.textContent = "Evidencia lista para publicarse.";
       };
       reader.readAsDataURL(file);
+    }
+
+    document.getElementById('camera-input').addEventListener('change', function(e) {
+      procesarArchivo(e.target.files[0]);
     });
 
-    // Gestión de LocalStorage
+    document.getElementById('gallery-input').addEventListener('change', function(e) {
+      procesarArchivo(e.target.files[0]);
+    });
+
+    // Gestion de LocalStorage
     function cargarReportesGuardados() {
       const guardados = JSON.parse(localStorage.getItem('baches_saltillo') || '[]');
       guardados.forEach(rep => renderizarReporte(rep, false));
@@ -275,20 +294,18 @@
       }
     }
 
-    // Función para generar y descargar la tarjeta gráfica con html2canvas
     function descargarTarjetaGrafica(rep) {
       const template = document.getElementById('export-card-template');
       document.getElementById('export-titulo').textContent = rep.titulo;
-      document.getElementById('export-antiguedad').textContent = "Edad de la bendición: " + rep.antiguedad;
+      document.getElementById('export-antiguedad').textContent = "Edad de la bendicion: " + rep.antiguedad;
       document.getElementById('export-historia').textContent = '"' + rep.historia + '"';
-      document.getElementById('export-coords').textContent = "📍 Coordenadas: " + rep.lat.toFixed(4) + ", " + rep.lng.toFixed(4);
+      document.getElementById('export-coords').textContent = "Coordenadas: " + rep.lat.toFixed(4) + ", " + rep.lng.toFixed(4);
 
       const mediaContainer = document.getElementById('export-media-container');
       mediaContainer.innerHTML = rep.mediaType === 'video'
         ? `<video src="${rep.mediaData}" style="width: 100%; height: 100%; object-fit: cover;"></video>`
         : `<img src="${rep.mediaData}" style="width: 100%; height: 100%; object-fit: cover;" />`;
 
-      // Renderizar el contenedor oculto a imagen usando html2canvas
       html2canvas(template, { scale: 2, useCORS: true }).then(canvas => {
         const link = document.createElement('a');
         link.download = `bache-${rep.titulo.toLowerCase().replace(/[^a-z0-9]/g, '_')}.png`;
@@ -319,7 +336,7 @@
       e.target.reset();
       loadedMediaData = null;
       document.getElementById('preview-container').classList.add('hidden');
-      document.getElementById('file-status').textContent = "Selecciona una foto o video de tu galería o cámara.";
+      document.getElementById('file-status').textContent = "Ningún archivo seleccionado.";
     });
 
     obtenerUbicacion();
